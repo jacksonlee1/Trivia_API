@@ -14,77 +14,37 @@
     <title>Trivia</title>
   </head>
   <body class="bg-white">
-    <nav class="navbar bg-primary navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar bg-primary navbar-expand-lg bg-primary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+       
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav align-items-end">
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://opentdb.com/api_config.php"
-                >API Info</a
-              >
-            </li>
-            <li class="nav-item">
-              <div class="dif-dropdown dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="difficultyMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <h4>Choose Difficulty</h4>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li onclick="setDifficulty('easy')">
-                    <a class="dropdown-item">Easy</a>
-                  </li>
-                  <li onclick="setDifficulty('medium')">
-                    <a class="dropdown-item">Medium</a>
-                  </li>
-                  <li onclick="setDifficulty('hard')">
-                    <a class="dropdown-item">Hard</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li class="nav-item">
-              <div class="cat-dropdown dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="categoryMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <h4>Choose category</h4>
-                </button>
-                <ul
-                  id="dropdown"
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton1"
-                ></ul>
-              </div>
-            </li>
-          </ul>
-        </div>
+        class="btn "
+        type="button"
+        id="menuButton"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-expanded="false"
+      >
+        <p> <span class="navbar-toggler-icon"></span></p>
+      </button>
+        
       </div>
     </nav>
+   
+    <div class="collapse bg-dark " id="navbarNav">
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://opentdb.com/api_config.php"
+            >API Info</a
+          >
+        </li>
+        
+    </div>
     <!-- <nav class="navbar bg-primary">
+
     <div class="container-fluid align-items-center"> 
       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
         <span class="navbar-toggler-icon"></span>
@@ -103,11 +63,59 @@
     </div>
   </nav> -->
 
+    <div class="container justify-content-center">
+    
+        <div class="col-md-12">
+         
+          <div id="carouselExample" class="carousel slide ">
+            <h3>Choose your category:</h3>
+            <div id="categories" class="carousel-inner"></div>
+<!--           
+            <a onclick="()=>{config.setCategory(0);start()} ">
+            <div class="cat" >
+              <img src="https://source.unsplash.com/random/180x150/?random" alt="">
+              <h3>Random</h3>
+            </div>
+          </a> -->
+          <button id="prev" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button id="next" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        
+         </div>
+       
+        </div>
+      </div>
+    </div>
+
+
+
+
     <div class="container-fluid justify-content-center">
       <div class="row">
         <div class="col-lg-3"></div>
+        <div id="preGame"class="col-lg-6 col-md-12 d-none">
+          <header><img id="preImg" src="" alt=""><h3 id="catLabel"></h3></header>
+          <img id="preImg" src="" alt=""><h3 id="catLabel"></h3>
+          <h3>Choose your difficulty:</h3>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" onclick="setDifficulty('easy')">Easy</button>
+            <button type="button" class="btn btn-primary" onclick="setDifficulty('medium')">Medium</button>
+            <button type="button" class="btn btn-primary" onclick="setDifficulty('hard')">Hard</button>
+          </div>
+             
+        
+        <label for="questionNum">How many Questions?: <input type="number" name="questionNum" id="questionNum"></label>
+        
+        <button class="btn btn-outline-success" onclick="start()">Play Now!</button>
 
-          <div class="col-lg-6 col-md-12 gameContainer">
+      </ul>
+        </div>
+          <div class="col-lg-6 col-md-12 gameContainer d-none">
             <div class="row">
               <div id="header" class="col bg-primary placeholder-glow">
                 <h3 class="category"><span class="placeholder col-6"></span></h3>

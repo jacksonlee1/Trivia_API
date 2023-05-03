@@ -4,9 +4,11 @@ let questionContainer = document.getElementsByClassName("current-question")[0];
 let questionDisplay = document.getElementsByClassName("question")[0];
 let gameHeader = document.getElementById("header");
 let answerContainer = document.getElementsByClassName("answers")[0];
-let categoryDropdown = document.getElementsByClassName("cat-dropdown")[0];
+//let categoryDropdown = document.getElementsByClassName("cat-dropdown")[0];
 let difficultyDropdown = document.getElementsByClassName("dif-dropdown")[0];
 let tmpBtn = document.getElementById("utilButton");
+let categories = [];
+
 let nextBtn = {
   btn: tmpBtn,
   setNext: function (i) {
@@ -27,11 +29,45 @@ let config = {
     numQuestions:50,
     url:"https://opentdb.com/api.php?",
     request:function(){
-        return this.url+'amount='+this.numQuestions+"&"+(this.category==0?"":"category="+this.category)+""+(this.difficulty=="random"?"":"&difficulty="+this.difficulty)
+        return this.url+'amount='+this.numQuestions+""+(this.category==0?"":"&category="+this.category)+""+(this.difficulty=="random"?"":"&difficulty="+this.difficulty)
+    },
+    setCategory:function(id){
+        this.category = id;
+        document.getElementById("carouselExample").classList.add('d-none');
+        preGame(this.category);
+        // document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
+        // document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
+    },
+    setNumQuestions:function(num){
+        this.numQuestions= num;
+    },
+    numPlayers:1,
+    setNumPlayers:function(num){
+        this.numPlayers = num
     }
 
 
 }
+function preGame(id){
+    
+    document.getElementById("preGame").classList.add('d-block')
+    document.getElementById("preGame").classList.remove('d-none')
+    for (const i of categories) {
+        if(i.id == id){
+            document.getElementById("preImg").setAttribute("src",`https://source.unsplash.com/random/180x150/?${i.name}`)
+            document.getElementById("catLabel").innerHTML = i.name
+        }
+        
+    }
+}
+
+let curPlayer = 0;
+
+let players = [
+   
+]
+
+
 
 let answerButtons = document.getElementsByClassName("answer");
 
@@ -41,9 +77,31 @@ init();
 function init() {
   getCategories();
 }
+function start(){
+    config.setNumQuestions(document.getElementById("questionNum").value);
+    //config.setNumPlayers(document.getElementById("playerNum").value);
+    document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
+     document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
+     document.getElementById("preGame").classList.add('d-none')
+     document.getElementById("preGame").classList.remove('d-block')
+   
+    fetchQuestions()
+   
+}
+function initPlayers(){
+    for (let i = 0; i < array.length; i++) {
+        let playerNum = i+1
+        players.add({playerId:i,
+            name:"Player"+playerNum,
+            questions:[],
+            score:0
+        });
+        
+    }
+}
 function setDifficulty(dif) {
   config.difficulty = dif;
-  let difficultyBtn = document.getElementById("difficultyMenuButton");
+//   let difficultyBtn = document.getElementById("difficultyMenuButton");
 
   switch (config.difficulty) {
     case "easy":
@@ -55,7 +113,7 @@ function setDifficulty(dif) {
       progressBar.classList.remove("bg-danger");
       progressBar.classList.add("bg-success");
 
-      difficultyBtn.innerHTML = "<p>Difficulty: Easy</p>";
+    //   difficultyBtn.innerHTML = "<p>Difficulty: Easy</p>";
 
       break;
 
@@ -68,7 +126,7 @@ function setDifficulty(dif) {
       progressBar.classList.remove("bg-succsess");
       progressBar.classList.remove("bg-danger");
       progressBar.classList.add("bg-warning");
-      difficultyBtn.innerHTML = "<p>Difficulty: Medium</p>";
+    //   difficultyBtn.innerHTML = "<p>Difficulty: Medium</p>";
       break;
 
     case "hard":
@@ -79,7 +137,7 @@ function setDifficulty(dif) {
       progressBar.classList.remove("bg-succsess");
       progressBar.classList.remove("bg-warning");
       progressBar.classList.add("bg-danger");
-      difficultyBtn.innerHTML = "<p>Difficulty: Hard</p>";
+    //   difficultyBtn.innerHTML = "<p>Difficulty: Hard</p>";
       break;
   }
 }
@@ -91,9 +149,8 @@ function resetAnswers() {
   }
 }
 
-async function fetchQuestions(categoryId) {
+async function fetchQuestions() {
 
-    config.category = categoryId
     console.log(config.request())
   let response = await fetch(
     config.request()
@@ -104,14 +161,16 @@ async function fetchQuestions(categoryId) {
   printQ(0);
 }
 
-function newDropdownElement(label, id) {
-  let liElement = document.createElement("li");
-  let aElement = document.createElement("a");
-  aElement.setAttribute("class", "dropdown-item");
-  aElement.innerHTML = label;
-  aElement.setAttribute("onclick", "fetchQuestions(" + id + ")");
-  liElement.appendChild(aElement);
-  return liElement;
+function newCategoryElement(label, id) {
+  let div = document.createElement("div");
+ 
+  
+  div.setAttribute("onclick", `config.setCategory(${id})` );
+  div.classList.add("cat")
+  div.innerHTML=`<img src="https://source.unsplash.com/random/180x150/?${label}" alt="">
+  <h5>${label}</h5>`
+  
+  return div;
 }
 
 // get categories: https://opentdb.com/api_category.php
@@ -119,15 +178,30 @@ function newDropdownElement(label, id) {
 async function getCategories() {
   let response = await fetch("https://opentdb.com/api_category.php");
   let list = await response.json();
-  let categories = list.trivia_categories;
+  categories = list.trivia_categories;
+let k = 0;
+  for (let i = 0; i < categories.length/6; i++) {
+    let item = document.createElement('div');
 
-  for (let i = 0; i < categories.length; i++) {
-    let li = newDropdownElement(categories[i].name, categories[i].id);
-    document.getElementById("dropdown").appendChild(li);
+    item.classList.add("carousel-item")
+    i==0?item.classList.add("active"):"";
+    for (let j = 0; j < 6; j++) {
+        item.appendChild(newCategoryElement(categories[k].name, categories[k].id));
+        k++;
+        
+    }
+    document.getElementById("categories").appendChild(item);
+
+    
   }
 }
+
+
+
+
+
 function correctAnswer(questionId) {
-  score++;
+ score++;
   resetAnswers();
   document.getElementById("score").innerHTML = score;
   let i = questionId + 1;
@@ -170,26 +244,28 @@ function newCorrectAnswer(answer, questionId, index) {
 }
 
 function printQ(questionId) {
-  updateProgress(questionId);
-  resetAnswers();
-  nextBtn.setReset();
+    nextBtn.setReset();
   //display question and category
 
-  if (questionId == questionArray.length - 1) {
+  if (questionId == questionArray.length ) {
     questionContainer.innerHTML =
       "<h3>Thanks for playing!! Your Score was: " + score + " out of "+config.numQuestions+"</h3>";
   } else {
+    updateProgress(questionId);
+    resetAnswers();
+    
+    setDifficulty(questionArray[questionId].difficulty)
     let curQuestionObj = questionArray[questionId];
 
     questionContainer.classList.remove("bg-danger");
     questionContainer.classList.remove("bg-success");
-    let categoryBtn = document.getElementById("categoryMenuButton");
+    //let categoryBtn = document.getElementById("categoryMenuButton");
 
     let categoryDisplay = document.getElementsByClassName("category")[0];
     questionDisplay.innerHTML = curQuestionObj.question;
     categoryDisplay.innerHTML = curQuestionObj.category;
-    categoryBtn.innerHTML =
-      "<p>Category: " + curQuestionObj.category + "</p>";
+    // categoryBtn.innerHTML =
+    //   "<p>Category: " + curQuestionObj.category + "</p>";
 
     //display answers
 
