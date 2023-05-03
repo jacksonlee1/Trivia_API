@@ -15,34 +15,22 @@
   </head>
   <body class="bg-white">
     <nav class="navbar bg-primary navbar-expand-lg bg-primary">
-      <div class="container-fluid">
+      <div class="container-fluid justify-content-lg-start">
        
-        <button
-        class="btn "
-        type="button"
-        id="menuButton"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-expanded="false"
-      >
-        <p> <span class="navbar-toggler-icon"></span></p>
-      </button>
+       <h2>Smarty Party</h2>
         
-      </div>
-    </nav>
-   
-    <div class="collapse bg-dark " id="navbarNav">
-      <ul class="navbar-nav ">
-        <li class="nav-item">
+      
+        
           <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="https://opentdb.com/api_config.php"
             >API Info</a
           >
-        </li>
+      </div>
+    </nav>
+   
+    
         
-    </div>
+    
     <!-- <nav class="navbar bg-primary">
 
     <div class="container-fluid align-items-center"> 
@@ -97,25 +85,26 @@
 
     <div class="container-fluid justify-content-center">
       <div class="row">
-        <div class="col-lg-3"></div>
-        <div id="preGame"class="col-lg-6 col-md-12 d-none">
+        <div class="col-lg-2"></div>
+        <div id="preGame"class="col-lg-8 col-md-12 d-none">
           <header><img id="preImg" src="" alt=""><h3 id="catLabel"></h3></header>
           <img id="preImg" src="" alt=""><h3 id="catLabel"></h3>
           <h3>Choose your difficulty:</h3>
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" onclick="setDifficulty('easy')">Easy</button>
-            <button type="button" class="btn btn-primary" onclick="setDifficulty('medium')">Medium</button>
-            <button type="button" class="btn btn-primary" onclick="setDifficulty('hard')">Hard</button>
+          <div  class="btn-group" role="group" aria-label="Basic example">
+            <button  type="button" class="btn btn-success" onclick="setDifficulty('easy')">Easy</button>
+            <button type="button" class="btn btn-warning" onclick="setDifficulty('medium')">Medium</button>
+            <button type="button" class="btn btn-danger" onclick="setDifficulty('hard')">Hard</button>
+            <button type="button" class="btn btn-primary" onclick="setDifficulty('random')">Random(default)</button>
           </div>
              
         
-        <label for="questionNum">How many Questions?: <input type="number" name="questionNum" id="questionNum"></label>
+        <label for="questionNum">How many Questions?: <input type="number" name="questionNum" id="questionNum" min="1" max="50" value="15"></label>
         
-        <button class="btn btn-outline-success" onclick="start()">Play Now!</button>
+        <button id="difficultyMenuButton" class="btn btn-outline-primary" onclick="start()">Play Now!</button>
 
       </ul>
         </div>
-          <div class="col-lg-6 col-md-12 gameContainer d-none">
+          <div id="game" class="col-lg-8 col-md-12 gameContainer d-none">
             <div class="row">
               <div id="header" class="col bg-primary placeholder-glow">
                 <h3 class="category"><span class="placeholder col-6"></span></h3>

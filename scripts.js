@@ -33,7 +33,7 @@ let config = {
     },
     setCategory:function(id){
         this.category = id;
-        document.getElementById("carouselExample").classList.add('d-none');
+        //document.getElementById("carouselExample").classList.add('d-none');
         preGame(this.category);
         // document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
         // document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
@@ -101,7 +101,7 @@ function initPlayers(){
 }
 function setDifficulty(dif) {
   config.difficulty = dif;
-//   let difficultyBtn = document.getElementById("difficultyMenuButton");
+let difficultyBtn = document.getElementById("difficultyMenuButton");
 
   switch (config.difficulty) {
     case "easy":
@@ -113,8 +113,11 @@ function setDifficulty(dif) {
       progressBar.classList.remove("bg-danger");
       progressBar.classList.add("bg-success");
 
-    //   difficultyBtn.innerHTML = "<p>Difficulty: Easy</p>";
+      difficultyBtn.classList.remove("bg-warning");
+      difficultyBtn.classList.remove("bg-danger");
+      difficultyBtn.classList.add("bg-success");
 
+    
       break;
 
     case "medium":
@@ -126,6 +129,10 @@ function setDifficulty(dif) {
       progressBar.classList.remove("bg-succsess");
       progressBar.classList.remove("bg-danger");
       progressBar.classList.add("bg-warning");
+
+      difficultyBtn.classList.remove("bg-succsess");
+      difficultyBtn.classList.remove("bg-danger");
+      difficultyBtn.classList.add("bg-warning");
     //   difficultyBtn.innerHTML = "<p>Difficulty: Medium</p>";
       break;
 
@@ -134,11 +141,28 @@ function setDifficulty(dif) {
       gameHeader.classList.remove("bg-warning");
       gameHeader.classList.add("bg-danger");
 
-      progressBar.classList.remove("bg-succsess");
+       progressBar.classList.remove("bg-succsess");
       progressBar.classList.remove("bg-warning");
       progressBar.classList.add("bg-danger");
+      
+      difficultyBtn.classList.remove("bg-succsess");
+      difficultyBtn.classList.remove("bg-warning");
+      difficultyBtn.classList.add("bg-danger");
     //   difficultyBtn.innerHTML = "<p>Difficulty: Hard</p>";
       break;
+      default:
+        gameHeader.classList.remove("bg-succsess");
+      gameHeader.classList.remove("bg-warning");
+      gameHeader.classList.remove("bg-danger");
+
+       progressBar.classList.remove("bg-succsess");
+      progressBar.classList.remove("bg-danger");
+      progressBar.classList.remove("bg-warning");
+      
+      difficultyBtn.classList.remove("bg-succsess");
+      difficultyBtn.classList.remove("bg-danger");
+      difficultyBtn.classList.remove("bg-warning");
+
   }
 }
 function resetAnswers() {

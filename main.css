@@ -4,6 +4,9 @@
     
 
 }
+.bg-primary{
+    background-color: #157A6E !important;
+}
 .cat{
     float:left;
     margin:10px;
@@ -103,14 +106,25 @@ padding:2vh;
 .next:hover{
     background-color: rgba(0,255,0,.5);
 }
+#game{
+    margin-top: 10vh !important;
+    background-color: #0d6efd;
+   
+}
+.nav-link{
+    margin: 2vh;
+}
+#game *{
+    border-radius:15px;
+}
     .gameContainer{
         height: 100vh;
-        border-radius: 5px;
-       
+        border-radius: 15px;
+        margin-top: 5vh;
     }
     @media (min-width:992px){
         .gameContainer{
-            max-height:500px;
+            max-height:715px;
             max-width:50vw;
         }
     }
