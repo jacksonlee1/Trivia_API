@@ -204,13 +204,14 @@ async function getCategories() {
   let list = await response.json();
   categories = list.trivia_categories;
 let k = 0;
-  for (let i = 0; i < categories.length/6; i++) {
+  for (let i = 0; i < categories.length/7; i++) {
     let item = document.createElement('div');
-
+    let nav = document.getElementsByClassName("categories")[0]
     item.classList.add("carousel-item")
     i==0?item.classList.add("active"):"";
-    for (let j = 0; j < 6; j++) {
+    for (let j = 0; j < 7; j++) {
         item.appendChild(newCategoryElement(categories[k].name, categories[k].id));
+        nav.appendChild(createTextChild("li",`<a onclick="config.setCategory(${categories[k].id})"> ${categories[k].name}</a>`))
         k++;
         
     }
@@ -218,6 +219,11 @@ let k = 0;
 
     
   }
+}
+function createOnclickLinkChild(href){
+  let item = document.createElement("a");
+  item.setAttribute("onclick", href);
+  return item;
 }
 
 
@@ -308,6 +314,12 @@ function printQ(questionId) {
       }
     }
   }
+}
+
+function createTextChild(element, value){
+  let item = document.createElement(element);
+  item.innerHTML = value;
+  return item;
 }
 
 

@@ -4,8 +4,30 @@
     
 
 }
-.bg-primary{
-    background-color: #157A6E !important;
+body{
+    background-color: #090a00 !important;
+    background-image: url("https://www.transparenttextures.com/patterns/cartographer.png");
+    background-attachment: fixed;
+}
+.navCollapse{
+    color:white;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+    transition-duration: .1s;
+}
+nav{
+    position:absolute;
+    top:0;
+    z-index: 999;
+    height:15vh;
+    background-image: url("./border.png");
+    background-size: 150%;
+    background-position: -2px 90%;
+}
+.bg-orange{
+    background-color: orange;
 }
 .cat{
     float:left;
@@ -13,12 +35,21 @@
     width:180px;
     height:230px;
     border-radius: 5px;
+    box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.1);
+-webkit-box-shadow: 1px -1px 22px 5px rgba(0,0,0,.1);
+-moz-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.1);
+background-color: white;
+}
+.cat:hover{
+    transition-duration: .5s ;
+    cursor: pointer;
     box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
 -webkit-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
 -moz-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
 }
 #preGame{
-    justify-content: left;
+    
+    background-color: white;
 }
 #preGame header{
     width:100%;
@@ -26,21 +57,23 @@
 }
 
 #carouselExample{
+
+    /* background-color: white; */
     height:300px;
 
 }
 #categories{
-    padding-left:48px;
+    padding-left:4.75vw;
 }
 .carousel-control-prev{
-    justify-content: left !important ;
+    justify-content: right !important ;
     
-    width: 48px !important;
+    width: 4.5vw !important;
 }
 .carousel-control-next{
-    justify-content: right !important ;
+    justify-content: left !important ;
    
-    width: 48px !important;
+    width: 4.5vw !important;
 }
 .carousel-control-prev-icon{
     background-color: rgba(255,165,0,.5) !important;
@@ -118,6 +151,7 @@ padding:2vh;
     border-radius:15px;
 }
     .gameContainer{
+        background-color: white;
         height: 100vh;
         border-radius: 15px;
         margin-top: 5vh;
@@ -128,7 +162,7 @@ padding:2vh;
             max-width:50vw;
         }
     }
-.row,.col,.container-fluid{
+.row,.col,.container-fluid,.col-lg-10{
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin: 0 !important;
@@ -142,10 +176,132 @@ padding:2vh;
     transition-duration: .5s;
    
 }
+.quickstart{
+    display:flex;
+ 
+    align-items: end;
+    
+    color: #ffa500;
+    margin:10% 5% 5% 10%;
+    width:100%;
+    height: 50vh;
+    background-image: url("https://source.unsplash.com/random/850x500/?knowledge");
+    overflow: hidden;
+    background-size:150% 150%;
+    background-position: center;
+    border-radius:5px;
+    transition-duration: .5s;
 
+   
 
+}
 
-/* 
-.container{
-    font-size: medium;
-} */
+.quickstart:hover{
+    cursor: pointer;
+    background-size:125% 125%;
+    
+    color:white;
+    border-radius:10px;
+    box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-webkit-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-moz-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+}
+.quickstart:hover .label{
+    background-color: rgba(255,165,0,.5);
+    
+}
+.quickstart .label{
+    padding: 2vh 5vh 3vh 5vh;
+    margin:0;
+    width: 100%;
+    border-radius: 5px;
+    text-align: left;
+    text-decoration: underline;
+    background-color: rgba(255 ,255,255,.2);
+
+}
+
+.recommended-container{
+    margin-top: 5%;
+}
+
+.recommended{
+    transition-duration: .5s ;
+display: flex;
+align-items: center;
+border-bottom: 1px solid rgba(0,0,0,.1);
+
+} 
+
+.recommended *{
+    margin:1vh;
+}
+header{
+    border-bottom:3px solid rgba(255,165,0,.5);
+}
+
+.recommended:hover{
+   
+    box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-webkit-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-moz-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+cursor:pointer;
+}
+
+.leaderboard-container{
+    margin:10% 5% 5% 15%;
+}
+.leaderboard-entry{
+    display:flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.leaderboard-entry *{
+    margin: 1vh
+}
+.news-container{
+    margin-top: 5vh;
+   margin-left:5%;
+ 
+}
+.news-container header{
+    margin-bottom: 5vh;
+
+ 
+}
+
+.news-entry{ 
+    color:white;
+    padding: 0 !important;;
+    margin: 5% 1vw 5% 1vw;
+    width:100%;
+    height:25vh;
+    background-image: url("https://source.unsplash.com/random/425x250/?knowledge");
+    overflow: hidden;
+    background-size:150% 150%;
+    background-position: center;
+    border-radius:5px;
+    transition-duration: .5s;
+    align-items: end;
+    display:flex;
+}
+.news-title{
+    padding: 2vh 5vh 3vh 5vh ;
+    margin:0;
+    width: 100%;
+    border-radius: 5px;
+    text-align: left;
+    
+    background-color: rgba(0 ,0,0,.3) !important;
+}
+.news-entry:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    background-size:125% 125%;
+    
+    color:white;
+    border-radius:10px;
+    box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-webkit-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+-moz-box-shadow: 1px -1px 22px 5px rgba(0,0,0,0.41);
+}
