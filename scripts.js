@@ -12,26 +12,28 @@ let categories = [];
 let nextBtn = {
   btn: tmpBtn,
   setNext: function (i) {
+   
     this.btn.setAttribute("onclick", "printQ(" + i + ")");
     this.btn.setAttribute("class", "next ");
     this.btn.innerHTML = "<h3>Next</h3>";
   },
   setReset: function () {
-    this.btn.addEventListener("click", async function(){ window.scroll({
-      top:0,
-      left: 0,
-      behavior: "smooth",
-    }); 
-  
-   setTimeout(()=>{
-    window.location.reload();
-   },1000)
-    });
+   
+    this.btn.setAttribute("onclick", "reloadPage()");
     this.btn.setAttribute("class", "reset ");
     this.btn.innerHTML = "<h3>Reset</h3>";
   },
 };
+function reloadPage(){ window.scroll({
+  top:0,
+  left: 0,
+  behavior: "smooth",
+}); 
 
+setTimeout(()=>{
+window.location.reload();
+},1000)
+}
 let config = {
     difficulty:"random",
     category:0,
