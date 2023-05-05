@@ -18,13 +18,12 @@ body{
     transition-duration: .1s;
 }
 nav{
-    position:absolute;
+    position:relative;
     top:0;
     z-index: 999;
-    height:15vh;
-    background-image: url("./border.png");
-    background-size: 150%;
-    background-position: -2px 90%;
+    background-color: orange;
+  
+    
 }
 .bg-orange{
     background-color: orange;
@@ -78,9 +77,18 @@ background-color: white;
     }
     .quickstart{
     margin:10% 5% 5% 10%;
+    height: 50vh;
+    background-image: url("https://source.unsplash.com/random/850x500/?knowledge");
     }
     .news-container{
         display: block;
+    }
+    nav{
+        height:20vh;
+        background-image: url("./border.png");
+        background-size: 150%;
+        background-position: -2px 95%;
+        background-color: white;
     }
 } 
 #categories{
@@ -198,6 +206,7 @@ padding:2vh;
    
 }
 .quickstart{
+    margin:1vh 0 0 0;
     display:flex;
  
     align-items: end;
@@ -205,8 +214,8 @@ padding:2vh;
     color: #ffa500;
    
     width:100%;
-    height: 50vh;
-    background-image: url("https://source.unsplash.com/random/850x500/?knowledge");
+    height: 25vh;
+    background-image: url("https://source.unsplash.com/random/425x250/?knowledge");
     overflow: hidden;
     background-size:150% 150%;
     background-position: center;
