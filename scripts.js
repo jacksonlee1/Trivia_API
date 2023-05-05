@@ -17,7 +17,16 @@ let nextBtn = {
     this.btn.innerHTML = "<h3>Next</h3>";
   },
   setReset: function () {
-    this.btn.setAttribute("onclick", "window.location.reload()");
+    this.btn.addEventListener("click", async function(){ window.scroll({
+      top:0,
+      left: 0,
+      behavior: "smooth",
+    }); 
+  
+   setTimeout(()=>{
+    window.location.reload();
+   },1000)
+    });
     this.btn.setAttribute("class", "reset ");
     this.btn.innerHTML = "<h3>Reset</h3>";
   },
@@ -81,6 +90,7 @@ let progressBar = document.getElementsByClassName("progress-bar")[0];
 init();
 function init() {
   getCategories();
+  getNews();
 }
 function quickStart(){
   config.category =0;
@@ -222,28 +232,43 @@ async function getCategories() {
   let response = await fetch("https://opentdb.com/api_category.php");
   let list = await response.json();
   categories = list.trivia_categories;
+  let nav = document.getElementsByClassName("categories")[0]
 let k = 0;
   for (let i = 0; i < categories.length/7; i++) {
     let item = document.createElement('div');
-    let nav = document.getElementsByClassName("categories")[0]
+    let ul = document.createElement("ul")
+    
     item.classList.add("carousel-item")
+
     i==0?item.classList.add("active"):"";
     for (let j = 0; j < 7; j++) {
         item.appendChild(newCategoryElement(categories[k].name, categories[k].id));
-        nav.appendChild(createTextChild("li",`<a onclick="config.setCategory(${categories[k].id})"> ${categories[k].name}</a>`))
+        ul.appendChild(createElement("li",["cat-item"],`<a  onclick="config.setCategory(${categories[k].id})"> ${categories[k].name}</a>`))
         k++;
         
     }
+    nav.appendChild(createElement("div",["list-container"],"").appendChild(ul))
     document.getElementById("categories").appendChild(item);
 
     
   }
 }
-function createOnclickLinkChild(href){
-  let item = document.createElement("a");
-  item.setAttribute("onclick", href);
-  return item;
+
+async function getNews(){ 
+  let response = await fetch("https://inshorts.deta.dev/news?category=technology");
+  let json = await response.json();
+  let data = json.data;
+  let newsItems = document.getElementsByClassName("news-entry")
+  console.log(newsItems.length)
+  for (let i=0; i<newsItems.length;i++) {
+     console.log(data[i].imageUrl);
+     newsItems[i].style.backgroundImage = `url(" ${data[i].imageUrl}")`;
+     newsItems[i].addEventListener("click",()=>{window.open(data[i].readMoreUrl, '_blank').focus();})
+     newsItems[i].children[0].innerHTML = data[i].title
+  }
+  
 }
+
 
 
 
@@ -330,10 +355,12 @@ function printQ(questionId) {
   }
 }
 
-function createTextChild(element, value){
-  let item = document.createElement(element);
-  item.innerHTML = value;
-  return item;
-}
 
+
+  function createElement(element,classArray,value){
+    let item = document.createElement(element);
+    item.innerHTML = value;
+    item.classList.add(...classArray)
+    return item;
+  }
 
