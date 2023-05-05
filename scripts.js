@@ -35,6 +35,11 @@ let config = {
         this.category = id;
         //document.getElementById("carouselExample").classList.add('d-none');
         preGame(this.category);
+        window.scroll({
+          top: 2000,
+          left: 0,
+          behavior: "smooth",
+        });
         // document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
         // document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
     },
@@ -49,7 +54,7 @@ let config = {
 
 }
 function preGame(id){
-    
+    console.log("break");
     document.getElementById("preGame").classList.add('d-block')
     document.getElementById("preGame").classList.remove('d-none')
     for (const i of categories) {
@@ -171,6 +176,7 @@ function resetAnswers() {
     answers[i].innerHTML = '<h3 class="placeholder col-6">';
     answers[i].setAttribute("onclick", "");
   }
+ 
 }
 
 async function fetchQuestions() {
@@ -232,7 +238,7 @@ function createOnclickLinkChild(href){
 
 function correctAnswer(questionId) {
  score++;
-  resetAnswers();
+
   document.getElementById("score").innerHTML = score;
   let i = questionId + 1;
   nextBtn.setNext(i);
@@ -248,8 +254,7 @@ function incorrectAnswer(index) {
   questionDisplay.innerHTML =
     "Correct Answer: " + questionArray[index].correct_answer;
   nextBtn.setNext(i);
-  resetAnswers();
-
+  resetAnswers()
   // updateProgress(index);
 }
 
@@ -283,14 +288,10 @@ function printQ(questionId) {
   } else {
     updateProgress(questionId);
     resetAnswers();
-    
-    setDifficulty(questionArray[questionId].difficulty)
-    let curQuestionObj = questionArray[questionId];
-
     questionContainer.classList.remove("bg-danger");
     questionContainer.classList.remove("bg-success");
-    //let categoryBtn = document.getElementById("categoryMenuButton");
-
+    setDifficulty(questionArray[questionId].difficulty);
+    let curQuestionObj = questionArray[questionId];
     let categoryDisplay = document.getElementsByClassName("category")[0];
     questionDisplay.innerHTML = curQuestionObj.question;
     categoryDisplay.innerHTML = curQuestionObj.category;

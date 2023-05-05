@@ -51,13 +51,13 @@
             </li>
           </ul>
         </div>
-        <nav class="navbar ">
+        <nav class="navbar bg-white">
           
             <button class="btn " type="button" data-bs-toggle="collapse" data-bs-target=".navCollapse" aria-controls="navCollapse">
               <span class="navbar-toggler-icon"></span>
       
             </button>
-           <h2>Smarty Party</h2>
+           <h2>The Ball of Knowledge</h2>
             
           
             
@@ -72,11 +72,10 @@
     </div>
       <div class="row">
           <div class="col-lg-1"></div>
-        <div class=" col-lg-10 col-md-12">
+        <div class=" col-lg-10 col-md-12 bg-white">
          
-          <div id="carouselExample" class="carousel slide ">
-            <h3>Choose your category:</h3>
-            <div id="categories" class="carousel-inner"></div>
+          <div id="carouselExample" class="carousel slide d-lg-block d-md-none">
+              <div id="categories" class="carousel-inner"></div>
 
           <button id="prev" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -206,72 +205,91 @@
 
 
 
-      <div class="row">
+      <div id="gameRow"class="row">
         <div class="col-lg-1"></div>
-        <div id="preGame"class="col-lg-10 col-md-12 d-none bg-white" >
-          <header><img id="preImg" src="" alt=""><h3 id="catLabel"></h3></header>
-          <img id="preImg" src="" alt=""><h3 id="catLabel"></h3>
-          <h3>Choose your difficulty:</h3>
-          <div  class="btn-group" role="group" aria-label="Basic example">
-            <button  type="button" class="btn btn-success" onclick="setDifficulty('easy')">Easy</button>
-            <button type="button" class="btn btn-warning" onclick="setDifficulty('medium')">Medium</button>
-            <button type="button" class="btn btn-danger" onclick="setDifficulty('hard')">Hard</button>
-            <button type="button" class="btn btn-primary" onclick="setDifficulty('random')">Random(default)</button>
+        <div class="col-lg-10 col-md-12  bg-white" >
+          
+          <div class="row mt-5">
+            <div class="col-lg-3"></div>
+            <div id="game" class="col-lg-6 col-md-12 gameContainer d-none">
+              <div class="row">
+                <div id="header" class="col  placeholder-glow">
+                  <h3 class="category"><span class="placeholder col-6"></span></h3>
+                </div>
+              </div>
+  
+              <div class="row ">
+                <div class="col">
+                  <div class="score  placeholder-glow">
+                    <h3>Score:</h3>
+                    <h3 id="score"><span class="placeholder col-1"></span></h3>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row ">
+                <div class="col">
+                  <div class="progress " role="progressbar">
+                    <div class="progress-bar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col">
+                  <div class="current-question  placeholder-glow">
+                    <h3 class="question "><span class="placeholder col-12"></span> <span class="placeholder col-6"></span></h3>
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col">
+                  <div class="answers placeholder-glow">
+                    <button class="answer"><h3 class="placeholder col-6"></h3></button>
+                    <button class="answer "><h3 class="placeholder col-6"></h3></button>
+                    <button class="answer "><h3 class="placeholder col-6"></h3></button>
+                    <button class="answer "><h3 class="placeholder col-6"></h3></button>
+                    <button id="utilButton" class="reset " onclick=""><h3 class="placeholder col-6"></h3></button>
+                  </div>
+                  
+                </div>
+              </div>
+              
+              
+            </div>
+            
+            
+            <div class="col-lg-6">
+              <div id="preGame" class = "d-none">
+              <header>
+                <div class="col"><img id="preImg" src="" alt=""></div>
+                <div class="col"><h2 id="catLabel"></h2></div>
+              </header>
+              <h4>Choose your difficulty:</h4>
+              <div  class="btn-group" role="group" aria-label="Basic example">
+                <button  type="button" class="btn btn-success" onclick="setDifficulty('easy')">Easy</button>
+                <button type="button" class="btn btn-warning" onclick="setDifficulty('medium')">Medium</button>
+                <button type="button" class="btn btn-danger" onclick="setDifficulty('hard')">Hard</button>
+                <button type="button" class="btn btn-primary" onclick="setDifficulty('random')">Random(default)</button>
+              </div>
+                 
+            
+            <label for="questionNum">How many Questions?: <input type="number" class="form-outline" name="questionNum" id="questionNum" min="1" max="50" value="15"></label>
+            
+            <button id="difficultyMenuButton" class="btn btn-outline-primary" onclick="start()">Play Now!</button>
+              </div>
+          
+            <div class="col-lg-3"></div>
           </div>
-             
-        
-        <label for="questionNum">How many Questions?: <input type="number" name="questionNum" id="questionNum" min="1" max="50" value="15"></label>
-        
-        <button id="difficultyMenuButton" class="btn btn-outline-primary" onclick="start()">Play Now!</button>
+          
+          
+         
+      </div>
+    </div>
   </div>
 
 
 
-          <div id="game" class="col-lg-10 col-md-12 gameContainer d-none">
-            <div class="row">
-              <div id="header" class="col bg-primary placeholder-glow">
-                <h3 class="category"><span class="placeholder col-6"></span></h3>
-              </div>
-            </div>
-
-            <div class="row ">
-              <div class="col">
-                <div class="score bg-primary placeholder-glow">
-                  <h3>Score:</h3>
-                  <h3 id="score"><span class="placeholder col-1"></span></h3>
-                </div>
-              </div>
-            </div>
-
-            <div class="row ">
-              <div class="col">
-                <div class="progress bg-primary" role="progressbar">
-                  <div class="progress-bar"></div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col">
-                <div class="current-question bg-primary placeholder-glow">
-                  <h3 class="question "><span class="placeholder col-12"></span> <span class="placeholder col-6"></span></h3>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col">
-                <div class="answers placeholder-glow">
-                  <button class="answer"><h3 class="placeholder col-6"></h3></button>
-                  <button class="answer "><h3 class="placeholder col-6"></h3></button>
-                  <button class="answer "><h3 class="placeholder col-6"></h3></button>
-                  <button class="answer "><h3 class="placeholder col-6"></h3></button>
-                  <button id="utilButton" class="reset " onclick=""><h3 class="placeholder col-6"></h3></button>
-                </div>
-                
-              </div>
-            </div>
-            
-            
-          </div>
+          
 
           <div class="col-lg-1"></div>
         </div>
