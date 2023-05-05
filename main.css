@@ -11,13 +11,14 @@ body{
 }
 .navCollapse{
     color:black;
-    
-    width: 100%;
-
+    padding:0;
+    max-width: 100%;
+  
     background-color: white;
     transition-duration: .1s;
    
 }
+
 .navButton{
     z-index: 999;
     width: 100%;
@@ -360,6 +361,10 @@ cursor:pointer;
 }
 #title{
     display:none
+}
+ul{
+    padding:0 !important;
+    margin:0 !important;
 }
 
 @media (min-width: 992px) {
