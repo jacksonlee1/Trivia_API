@@ -44,11 +44,7 @@ let config = {
         this.category = id;
         //document.getElementById("carouselExample").classList.add('d-none');
         preGame(this.category);
-        window.scroll({
-          top: 2000,
-          left: 0,
-          behavior: "smooth",
-        });
+        document.getElementById("preGame").scrollIntoView()
         // document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
         // document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
     },
@@ -96,11 +92,7 @@ function quickStart(){
   config.category =0;
   document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
   document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
-  window.scroll({
-    top: 2000,
-    left: 0,
-    behavior: "smooth",
-  });
+  answerContainer.scrollIntoView();
    
     fetchQuestions();
 
