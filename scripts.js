@@ -29,7 +29,7 @@ let config = {
     numQuestions:50,
     url:"https://opentdb.com/api.php?",
     request:function(){
-        return this.url+'amount='+this.numQuestions+""+(this.category==0?"":"&category="+this.category)+""+(this.difficulty=="random"?"":"&difficulty="+this.difficulty)
+        return this.url+'amount='+this.numQuestions+""+(this.category==0?"":"&category="+this.category)+""+(this.difficulty=="random"?"":"&difficulty="+this.difficulty)+"&type=multiple"
     },
     setCategory:function(id){
         this.category = id;
