@@ -73,6 +73,15 @@ background-color: white;
     #carouselExample{
         display:block;
     }
+    .leaderboard-container{
+        display:block;
+    }
+    .quickstart{
+    margin:10% 5% 5% 10%;
+    }
+    .news-container{
+        display: block;
+    }
 } 
 #categories{
     padding-left:4.75vw;
@@ -194,7 +203,7 @@ padding:2vh;
     align-items: end;
     
     color: #ffa500;
-    margin:10% 5% 5% 10%;
+   
     width:100%;
     height: 50vh;
     background-image: url("https://source.unsplash.com/random/850x500/?knowledge");
@@ -262,6 +271,7 @@ cursor:pointer;
 
 .leaderboard-container{
     margin:10% 5% 5% 15%;
+    display:none;
 }
 .leaderboard-entry{
     display:flex;
@@ -274,6 +284,7 @@ cursor:pointer;
 .news-container{
     margin-top: 5vh;
    margin-left:5%;
+   display: none;
  
 }
 .news-container header{

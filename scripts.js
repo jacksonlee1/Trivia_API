@@ -82,6 +82,19 @@ init();
 function init() {
   getCategories();
 }
+function quickStart(){
+  config.category =0;
+  document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
+  document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
+  window.scroll({
+    top: 2000,
+    left: 0,
+    behavior: "smooth",
+  });
+   
+    fetchQuestions();
+
+}
 function start(){
     config.setNumQuestions(document.getElementById("questionNum").value);
     //config.setNumPlayers(document.getElementById("playerNum").value);
