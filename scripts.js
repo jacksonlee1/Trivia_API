@@ -9,11 +9,26 @@ let difficultyDropdown = document.getElementsByClassName("dif-dropdown")[0];
 let tmpBtn = document.getElementById("utilButton");
 let categories = [];
 
+let curPlayer = 0;
+
+let players = [
+
+   
+]
+
+
+
+let answerButtons = document.getElementsByClassName("answer");
+
+let progressBar = document.getElementsByClassName("progress-bar")[0];
+
+
+
 let nextBtn = {
   btn: tmpBtn,
   setNext: function (i) {
    
-    this.btn.setAttribute("onclick", "printQ(" + i + ")");
+    this.btn.setAttribute("onclick", 'nextPlayer('+i+')');
     this.btn.setAttribute("class", "next ");
     this.btn.innerHTML = "<h3>Next</h3>";
   },
@@ -34,6 +49,8 @@ setTimeout(()=>{
 window.location.reload();
 },1000)
 }
+
+
 let config = {
     difficulty:"random",
     category:0,
@@ -60,153 +77,24 @@ let config = {
 
 
 }
-function preGame(id){
-    console.log("break");
-    document.getElementById("preGame").classList.add('d-block')
-    document.getElementById("preGame").classList.remove('d-none')
-    for (const i of categories) {
-        if(i.id == id){
-            document.getElementById("preImg").setAttribute("src",`https://source.unsplash.com/random/180x150/?${i.name}`)
-            document.getElementById("catLabel").innerHTML = i.name
-        }
-        
-    }
-}
-
-let curPlayer = 0;
-
-let players = [
-   
-]
-
-
-
-let answerButtons = document.getElementsByClassName("answer");
-
-let progressBar = document.getElementsByClassName("progress-bar")[0];
-
-init();
-function init() {
-  getCategories();
-  getNews();
-}
-function quickStart(){
-  config.category =0;
-  document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
-  document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
-  answerContainer.scrollIntoView();
-   
-    fetchQuestions();
-
-}
-function start(){
-    config.setNumQuestions(document.getElementById("questionNum").value);
-    //config.setNumPlayers(document.getElementById("playerNum").value);
-    document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
-     document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
-     document.getElementById("preGame").classList.add('d-none')
-     document.getElementById("preGame").classList.remove('d-block')
-   
-    fetchQuestions()
-   
-}
-function initPlayers(){
-    for (let i = 0; i < array.length; i++) {
-        let playerNum = i+1
-        players.add({playerId:i,
-            name:"Player"+playerNum,
-            questions:[],
-            score:0
-        });
-        
-    }
-}
-function setDifficulty(dif) {
-  config.difficulty = dif;
-let difficultyBtn = document.getElementById("difficultyMenuButton");
-
-  switch (config.difficulty) {
-    case "easy":
-      gameHeader.classList.remove("bg-warning");
-      gameHeader.classList.remove("bg-danger");
-      gameHeader.classList.add("bg-success");
-
-      progressBar.classList.remove("bg-warning");
-      progressBar.classList.remove("bg-danger");
-      progressBar.classList.add("bg-success");
-
-      difficultyBtn.classList.remove("bg-warning");
-      difficultyBtn.classList.remove("bg-danger");
-      difficultyBtn.classList.add("bg-success");
-
-    
-      break;
-
-    case "medium":
-      gameHeader.classList.remove("bg-succsess");
-
-      gameHeader.classList.remove("bg-danger");
-      gameHeader.classList.add("bg-warning");
-
-      progressBar.classList.remove("bg-succsess");
-      progressBar.classList.remove("bg-danger");
-      progressBar.classList.add("bg-warning");
-
-      difficultyBtn.classList.remove("bg-succsess");
-      difficultyBtn.classList.remove("bg-danger");
-      difficultyBtn.classList.add("bg-warning");
-    //   difficultyBtn.innerHTML = "<p>Difficulty: Medium</p>";
-      break;
-
-    case "hard":
-      gameHeader.classList.remove("bg-succsess");
-      gameHeader.classList.remove("bg-warning");
-      gameHeader.classList.add("bg-danger");
-
-       progressBar.classList.remove("bg-succsess");
-      progressBar.classList.remove("bg-warning");
-      progressBar.classList.add("bg-danger");
-      
-      difficultyBtn.classList.remove("bg-succsess");
-      difficultyBtn.classList.remove("bg-warning");
-      difficultyBtn.classList.add("bg-danger");
-    //   difficultyBtn.innerHTML = "<p>Difficulty: Hard</p>";
-      break;
-      default:
-        gameHeader.classList.remove("bg-succsess");
-      gameHeader.classList.remove("bg-warning");
-      gameHeader.classList.remove("bg-danger");
-
-       progressBar.classList.remove("bg-succsess");
-      progressBar.classList.remove("bg-danger");
-      progressBar.classList.remove("bg-warning");
-      
-      difficultyBtn.classList.remove("bg-succsess");
-      difficultyBtn.classList.remove("bg-danger");
-      difficultyBtn.classList.remove("bg-warning");
-
+function nextPlayer(questionId){
+  console.log(curPlayer)
+  if(curPlayer == players.length-1){
+    curPlayer=0;
+    players[0].printQ(questionId+1);
+  }else{
+    curPlayer++;
+    console.log("next player",curPlayer)
+    players[curPlayer].printQ(questionId+1);
   }
 }
-function resetAnswers() {
-  let answers = document.getElementsByClassName("answer");
-  for (let i = 0; i < answers.length; i++) {
-    answers[i].innerHTML = '<h3 class="placeholder col-6">';
-    answers[i].setAttribute("onclick", "");
-  }
- 
+function createElement(element,classArray,value){
+  let item = document.createElement(element);
+  item.innerHTML = value;
+  item.classList.add(...classArray)
+  return item;
 }
 
-async function fetchQuestions() {
-
-    console.log(config.request())
-  let response = await fetch(
-    config.request()
-  );
-  let questions = await response.json();
-  questionArray = questions.results;
-
-  printQ(0);
-}
 
 function newCategoryElement(label, id) {
   let div = document.createElement("div");
@@ -219,6 +107,7 @@ function newCategoryElement(label, id) {
   
   return div;
 }
+
 
 // get categories: https://opentdb.com/api_category.php
 
@@ -248,6 +137,10 @@ let k = 0;
   }
 }
 
+
+
+
+
 async function getNews(){ 
   let response = await fetch("https://inshorts.deta.dev/news?category=technology");
   let json = await response.json();
@@ -263,28 +156,215 @@ async function getNews(){
   
 }
 
+function init() {
+  getCategories();
+  getNews();
+}
+
+
+init();
+
+function preGame(id){
+    console.log("break");
+    document.getElementById("preGame").classList.add('d-block')
+    document.getElementById("preGame").classList.remove('d-none')
+    for (const i of categories) {
+        if(i.id == id){
+            document.getElementById("preImg").setAttribute("src",`https://source.unsplash.com/random/180x150/?${i.name}`)
+            document.getElementById("catLabel").innerHTML = i.name
+        }
+        
+    }
+}
+function displayAnswers(question, questionId){
+  let correctIndex = Math.floor(
+    Math.random() * question.incorrect_answers.length
+  );
+
+  let answerArray = question.incorrect_answers;
+  answerArray.splice(correctIndex, 0, question.correct_answer);
+
+  for (let j = 0; j < question.incorrect_answers.length; j++) {
+    if (j == correctIndex) {
+      newCorrectAnswer(question.correct_answer, questionId, j);
+    } else {
+      newWrongAnswer(question.incorrect_answers[j], questionId, j);
+    }
+  }
+}
+
+
+
+
+
+
+async function initPlayers(){
+  for (let i = 0; i < 3; i++) {
+      let playerNum = i+1
+      players.push({playerId:i,
+          name:"Player"+playerNum,
+          questions: await fetchQuestions(i),
+          score:0,
+          printQ: function(questionId) {
+  
+            nextBtn.setReset();
+          //display question and category
+          
+          if (questionId == this.questions.length ) {
+            questionContainer.innerHTML =
+              "<h3>Thanks for playing!! Your Score was: " + score + " out of "+config.numQuestions+"</h3>";
+          } else {
+            document.getElementById("score").innerHTML = players[curPlayer].name+"'s score:"+players[curPlayer].score;
+            updateProgress(questionId);
+            resetAnswers();
+            questionContainer.classList.remove(...["bg-danger","bg-succes"]);
+            setDifficulty(this.questions[questionId].difficulty);
+            let curQuestionObj = this.questions[questionId];
+            let categoryDisplay = document.getElementsByClassName("category")[0];
+            questionDisplay.innerHTML = curQuestionObj.question;
+            categoryDisplay.innerHTML = curQuestionObj.category;
+            // categoryBtn.innerHTML =
+            //   "<p>Category: " + curQuestionObj.category + "</p>";
+          
+            //display answers
+            displayAnswers(curQuestionObj,questionId)
+            
+          }
+          }}
+
+
+          
+      );
+      
+  }
+  console.log(players)
+}
+
+function quickStart(){
+  config.category =0;
+  document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
+  document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
+  answerContainer.scrollIntoView();
+   
+    fetchQuestions();
+
+}
+function setDifficulty(dif) {
+  config.difficulty = dif;
+let difficultyBtn = document.getElementById("difficultyMenuButton");
+
+  switch (config.difficulty) {
+    case "easy":
+      gameHeader.classList.remove(...["bg-succsess","bg-danger"]);
+      gameHeader.classList.add("bg-success");
+
+      progressBar.classList.remove(...["bg-succsess","bg-danger"]);
+      progressBar.classList.add("bg-success");
+
+      difficultyBtn.classList.remove(...["bg-warning","bg-danger"]);
+      difficultyBtn.classList.add("bg-success");
+
+    
+      break;
+
+    case "medium":
+
+      gameHeader.classList.remove(...["bg-succsess","bg-danger"]);
+      gameHeader.classList.add("bg-warning");
+
+      progressBar.classList.remove(...["bg-succsess","bg-danger"]);
+      progressBar.classList.add("bg-warning");
+
+      difficultyBtn.classList.remove(...["bg-succsess","bg-danger"]);
+      difficultyBtn.classList.add("bg-warning");
+    //   difficultyBtn.innerHTML = "<p>Difficulty: Medium</p>";
+      break;
+
+    case "hard":
+      gameHeader.classList.remove(...["bg-succsess","bg-warning"]);
+      gameHeader.classList.add("bg-danger");
+
+       progressBar.classList.remove(...["bg-succsess","bg-warning"]);
+      progressBar.classList.add("bg-danger");
+      
+      difficultyBtn.classList.remove(...["bg-succsess","bg-warning"]);
+      difficultyBtn.classList.add("bg-danger");
+    //   difficultyBtn.innerHTML = "<p>Difficulty: Hard</p>";
+      break;
+      default:
+        gameHeader.classList.remove(...["bg-succsess","bg-warning","bg-danger"]);
+
+       progressBar.classList.remove(...["bg-succsess","bg-warning","bg-danger"]);
+     
+      
+      difficultyBtn.classList.remove(...["bg-succsess","bg-warning","bg-danger"]);
+ 
+
+  }
+}
+
+async function start(){
+    await initPlayers();
+    console.log("start")
+    config.setNumQuestions(document.getElementById("questionNum").value);
+    //config.setNumPlayers(document.getElementById("playerNum").value);
+    document.getElementsByClassName('gameContainer')[0].classList.remove('d-none')
+     document.getElementsByClassName('gameContainer')[0].classList.add('d-block')
+     document.getElementById("preGame").classList.add('d-none')
+     document.getElementById("preGame").classList.remove('d-block')
+    
+    players[0].printQ(0)
+    
+
+
+   
+}
+
+async function fetchQuestions() {
+
+  console.log(config.request())
+let response = await fetch(
+  config.request()
+);
+let questions = await response.json();
+  return questions.results
+
+}
+
+
+function resetAnswers() {
+  let answers = document.getElementsByClassName("answer");
+  for (let i = 0; i < answers.length; i++) {
+    answers[i].innerHTML = '<h3 class="placeholder col-6">';
+    answers[i].setAttribute("onclick", "");
+  }
+ 
+}
+
 
 
 
 
 
 function correctAnswer(questionId) {
- score++;
+  let question = players[curPlayer].questions[questionId] 
+  players[curPlayer].score++;
 
-  document.getElementById("score").innerHTML = score;
+  document.getElementById("score").innerHTML = players[curPlayer].score;
   let i = questionId + 1;
   nextBtn.setNext(i);
   questionContainer.classList.add("bg-success");
   questionDisplay.innerHTML =
-    "Correct Answer: " + questionArray[questionId].correct_answer;
+    "Correct Answer: " + question.correct_answer;
   resetAnswers();
   // updateProgress(index);
 }
 function incorrectAnswer(index) {
+  let question = players[curPlayer].questions[index] 
   questionContainer.classList.add("bg-danger");
   let i = index + 1;
   questionDisplay.innerHTML =
-    "Correct Answer: " + questionArray[index].correct_answer;
+    "Correct Answer: " + question.correct_answer;
   nextBtn.setNext(i);
   resetAnswers()
   // updateProgress(index);
@@ -295,7 +375,7 @@ function updateProgress(index) {
 }
 
 function newWrongAnswer(answer, questionId, index) {
-  let btn = document.getElementsByClassName("answer")[index];
+  let btn = answerButtons[index];
 
   btn.innerHTML = `<h3>${answer}</h3>`;
   btn.setAttribute("onclick", "incorrectAnswer(" + questionId + ")");
@@ -310,51 +390,9 @@ function newCorrectAnswer(answer, questionId, index) {
   return btn;
 }
 
-function printQ(questionId) {
-    nextBtn.setReset();
-  //display question and category
+function runtime(){
 
-  if (questionId == questionArray.length ) {
-    questionContainer.innerHTML =
-      "<h3>Thanks for playing!! Your Score was: " + score + " out of "+config.numQuestions+"</h3>";
-  } else {
-    updateProgress(questionId);
-    resetAnswers();
-    questionContainer.classList.remove("bg-danger");
-    questionContainer.classList.remove("bg-success");
-    setDifficulty(questionArray[questionId].difficulty);
-    let curQuestionObj = questionArray[questionId];
-    let categoryDisplay = document.getElementsByClassName("category")[0];
-    questionDisplay.innerHTML = curQuestionObj.question;
-    categoryDisplay.innerHTML = curQuestionObj.category;
-    // categoryBtn.innerHTML =
-    //   "<p>Category: " + curQuestionObj.category + "</p>";
-
-    //display answers
-
-    let correctIndex = Math.floor(
-      Math.random() * curQuestionObj.incorrect_answers.length
-    );
-
-    let answerArray = curQuestionObj.incorrect_answers;
-    answerArray.splice(correctIndex, 0, curQuestionObj.correct_answer);
-
-    for (let j = 0; j < curQuestionObj.incorrect_answers.length; j++) {
-      if (j == correctIndex) {
-        newCorrectAnswer(curQuestionObj.correct_answer, questionId, j);
-      } else {
-        newWrongAnswer(curQuestionObj.incorrect_answers[j], questionId, j);
-      }
-    }
-  }
 }
 
 
-
-  function createElement(element,classArray,value){
-    let item = document.createElement(element);
-    item.innerHTML = value;
-    item.classList.add(...classArray)
-    return item;
-  }
 
